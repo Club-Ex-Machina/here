@@ -5,23 +5,23 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Font } from 'expo';
 // import { Image } from 'react-native-svg';
 
+//Definir la taille de l'ecran
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
+//Definir la photo de background
 const BG_IMAGE = require('../assets/spqr4.png')
 
+//definir la photo de login avec le QR code
 const QR_IMAGE = require('../assets/QR_IMAGE.png')
 
-    const shadowStyle = {
-        shadowOpacity: 4.5,
-        shadowRadius: 15,
-        shadowColor: '#0039CB'
-    }
+
 export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
 
+        //definir les etats de depart(initialisation)
         this.state = {
             fontLoaded: false,
             username: '',
@@ -32,6 +32,7 @@ export default class Login extends React.Component {
         };
     }
 
+    //Verifier si les components sont bien loader avec une fonction asynchrone
     async componentDidMount() {
         await Font.loadAsync({
             'georgia': require('../assets/fonts/Georgia.ttf'),
@@ -43,12 +44,14 @@ export default class Login extends React.Component {
         this.setState({ fontLoaded: true });
     }
 
+    //Code de validation regex pour verifer le format du username (11(xx)1111(11))
     validateUsername(username) {
         var re = /\d{2}\D{1,2}\d{4,6}/;
 
         return re.test(username);
     }
 
+    //En attendant que les informations soient validé, cette partie montre un loading icon
     submitLoginCredentials() {
         const { showLoading } = this.state;
 
@@ -58,7 +61,7 @@ export default class Login extends React.Component {
     }
 
     render() {
-
+        
         const { username, password, usernameValid, showLoading } = this.state;
 
         return (
